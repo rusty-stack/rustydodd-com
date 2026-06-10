@@ -1,0 +1,269 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1a1a1a;
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0294ff;
+  text-decoration: none;
+}
+
+.nav-brand:hover {
+  text-decoration: none;
+  color: #3aaeff;
+}
+
+.nav-contact {
+  font-size: 15px;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.nav-contact:hover {
+  color: #f9fafb;
+  text-decoration: none;
+}
+
+.hero {
+  padding: 120px 40px 100px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-name {
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: #f9fafb;
+  margin-bottom: 16px;
+}
+
+.hero-tagline {
+  font-size: 18px;
+  color: #0294ff;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.hero-bio {
+  font-size: 18px;
+  color: #9ca3af;
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: transparent;
+  border: 1px solid #0294ff;
+  color: #0294ff;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.hero-btn:hover {
+  background: #0294ff;
+  color: #fff;
+  text-decoration: none;
+}
+
+.section {
+  padding: 80px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #0294ff;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(24px, 3vw, 32px);
+  color: #f9fafb;
+  margin-bottom: 48px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.15s;
+}
+
+.card:hover {
+  border-color: #0294ff;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: #9ca3af;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #1a1f2e;
+  color: #60a5fa;
+  border: 1px solid #1e3a5f;
+  letter-spacing: 0.2px;
+}
+
+.about-section {
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.about-text {
+  font-size: 18px;
+  color: #9ca3af;
+  line-height: 1.8;
+  max-width: 640px;
+}
+
+.contact-section {
+  padding: 60px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+footer {
+  border-top: 1px solid #1a1a1a;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-link {
+  font-size: 14px;
+  color: #6b7280;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.footer-link:hover {
+  color: #f9fafb;
+  text-decoration: none;
+}
+
+.footer-byline {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.contact-email {
+  font-size: 20px;
+  font-weight: 500;
+  color: #f9fafb;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.contact-email:hover {
+  color: #0294ff;
+  text-decoration: none;
+}
+
+.contact-sub {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 20px;
+  }
+
+  .hero {
+    padding: 80px 20px 70px;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+
+  .contact-section {
+    padding: 40px 20px;
+  }
+
+  footer {
+    padding: 32px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
