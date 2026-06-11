@@ -362,6 +362,135 @@ footer {
 .cli-cursor  { color: #00cc44; }
 .cli-blank   { user-select: none; }
 
+.gpt-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.gpt-window {
+  background: #080808;
+  border: 1px solid #222;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 900px;
+  height: min(85vh, 580px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.gpt-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.gpt-terminal {
+  width: 42%;
+  border-right: 1px solid #161616;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.gpt-sheet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.gpt-pane-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2d3748;
+  padding: 7px 12px 4px;
+  flex-shrink: 0;
+}
+
+.gpt-term-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 12px 12px;
+  font-size: 12px;
+  line-height: 1.75;
+  scrollbar-width: thin;
+  scrollbar-color: #1e1e1e transparent;
+}
+
+.gpt-line        { white-space: pre; }
+.gpt-cmd         { color: #6b7280; }
+.gpt-header      { color: #00cc44; font-weight: bold; }
+.gpt-info        { color: #4b5563; }
+.gpt-ok          { color: #1f2937; }
+.gpt-fetch       { color: #6b7280; }
+.gpt-found-same  { color: #374151; }
+.gpt-found-up    { color: #f87171; }
+.gpt-found-down  { color: #4ade80; }
+.gpt-done        { color: #00cc44; }
+
+.gpt-sheet-head {
+  display: grid;
+  grid-template-columns: 1fr 64px 100px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #374151;
+  padding: 7px 12px 6px;
+  border-bottom: 1px solid #161616;
+  flex-shrink: 0;
+}
+
+.gpt-sheet-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #1e1e1e transparent;
+}
+
+.gpt-row {
+  display: grid;
+  grid-template-columns: 1fr 64px 100px;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-bottom: 1px solid #0f0f0f;
+  animation: rowSlideIn 0.18s ease;
+}
+
+.gpt-row-even { background: #0d0d0d; }
+
+@keyframes rowSlideIn {
+  from { opacity: 0; transform: translateX(6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.gpt-col-name  { color: #d1d5db; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gpt-col-price { color: #f9fafb; text-align: right; padding-right: 8px; }
+.gpt-delta-up   { color: #f87171; text-align: right; }
+.gpt-delta-down { color: #4ade80; text-align: right; }
+.gpt-delta-same { color: #374151; text-align: right; }
+
+@media (max-width: 600px) {
+  .gpt-body       { flex-direction: column; }
+  .gpt-terminal   { width: 100%; height: 38%; border-right: none; border-bottom: 1px solid #161616; }
+  .gpt-sheet      { height: 62%; }
+  .gpt-term-scroll{ font-size: 11px; }
+  .gpt-row        { font-size: 11px; padding: 4px 10px; }
+  .gpt-sheet-head { font-size: 9px; padding: 6px 10px; }
+  .gpt-sheet-head, .gpt-row { grid-template-columns: 1fr 52px 80px; }
+}
+
 .contact-email {
   font-size: 20px;
   font-weight: 500;

@@ -130,6 +130,132 @@ function CLIDemo({ onClose }) {
   )
 }
 
+const GROCERY_ITEMS = [
+  { name: 'Kroger Whole Milk 1gal',        price: 3.99, prev: 3.79 },
+  { name: 'Kroger Large Eggs 12ct',         price: 2.49, prev: 2.49 },
+  { name: 'Wonder White Bread 20oz',        price: 3.19, prev: 3.39 },
+  { name: 'Kroger Salted Butter 1lb',       price: 4.79, prev: 4.79 },
+  { name: 'Chicken Breast Boneless 2lb',    price: 6.98, prev: 7.49 },
+  { name: 'Gala Apples 3lb bag',            price: 4.49, prev: 4.29 },
+  { name: 'Bananas per lb',                 price: 0.59, prev: 0.59 },
+  { name: 'Russet Potatoes 5lb',            price: 3.99, prev: 3.99 },
+  { name: "Campbell's Chicken Soup 10oz",   price: 1.89, prev: 1.69 },
+  { name: 'Kroger Orange Juice 52oz',       price: 4.29, prev: 4.29 },
+  { name: 'Tide Simply Detergent 46oz',     price: 5.99, prev: 6.49 },
+  { name: 'Kroger Rotini Pasta 16oz',       price: 1.19, prev: 1.19 },
+  { name: 'Ragu Traditional Sauce 24oz',    price: 2.49, prev: 2.79 },
+  { name: 'Kroger 2% Milk 1gal',            price: 3.79, prev: 3.59 },
+]
+
+const GROCERY_SEQUENCE = (() => {
+  const seq = []
+  let t = 0
+  const term = (text, cls) => { seq.push({ type: 'term', text, cls, t }) }
+  const row  = (item)       => { seq.push({ type: 'row',  item,     t }) }
+
+  const boot = [
+    ['$ node grocery-price-tracker.js',          'gpt-cmd'    ],
+    ['Grocery Price Tracker  v1.4',               'gpt-header' ],
+    ['Store: Kroger — Memphis, TN',               'gpt-info'   ],
+    ['Sheet: Kroger Prices 2026',                 'gpt-info'   ],
+    ['',                                          'gpt-blank'  ],
+    ['Google Sheets API...  connected',           'gpt-ok'     ],
+    ['Headless browser...   ready',               'gpt-ok'     ],
+    ['kroger.com...         loaded',              'gpt-ok'     ],
+    ['',                                          'gpt-blank'  ],
+    [`Scanning ${GROCERY_ITEMS.length} items...`, 'gpt-info'   ],
+    ['',                                          'gpt-blank'  ],
+  ]
+  boot.forEach(([text, cls]) => { term(text, cls); t += 130 })
+
+  GROCERY_ITEMS.forEach((item, i) => {
+    const n = String(i + 1).padStart(2, '0')
+    term(`[${n}/${GROCERY_ITEMS.length}]  ${item.name}`, 'gpt-fetch')
+    t += 370
+    const diff = +(item.price - item.prev).toFixed(2)
+    const arrow = diff > 0 ? ' ▲' : diff < 0 ? ' ▼' : '  '
+    const diffStr = diff !== 0 ? `  (${diff > 0 ? '+' : '-'}$${Math.abs(diff).toFixed(2)})` : ''
+    const cls = diff > 0 ? 'gpt-found-up' : diff < 0 ? 'gpt-found-down' : 'gpt-found-same'
+    term(`         ✓  $${item.price.toFixed(2)}${arrow}${diffStr}`, cls)
+    row(item)
+    t += 90
+  })
+
+  t += 200
+  term('', 'gpt-blank')
+  term(`All ${GROCERY_ITEMS.length} items scanned.  Writing to sheet...`, 'gpt-info')
+  t += 500
+  term('✓ Sheet updated.  Next run: Mon, 10:00 AM', 'gpt-done')
+
+  return seq
+})()
+
+function GroceryDemo({ onClose }) {
+  const [termLines, setTermLines] = useState([])
+  const [rows, setRows] = useState([])
+  const termBottomRef = useRef(null)
+  const sheetBottomRef = useRef(null)
+  useEscClose(onClose)
+
+  useEffect(() => {
+    const timers = GROCERY_SEQUENCE.map(event =>
+      setTimeout(() => {
+        if (event.type === 'term') setTermLines(prev => [...prev, { text: event.text, cls: event.cls }])
+        else setRows(prev => [...prev, event.item])
+      }, event.t)
+    )
+    return () => timers.forEach(clearTimeout)
+  }, [])
+
+  useEffect(() => { termBottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [termLines])
+  useEffect(() => { sheetBottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [rows])
+
+  return (
+    <div className="gpt-overlay" onClick={onClose}>
+      <div className="gpt-window" onClick={e => e.stopPropagation()}>
+        <div className="cli-titlebar">
+          <span>GROCERY PRICE TRACKER — Kroger Memphis, TN</span>
+          <button className="cli-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="gpt-body">
+          <div className="gpt-terminal">
+            <div className="gpt-pane-label">terminal</div>
+            <div className="gpt-term-scroll">
+              {termLines.map((l, i) => (
+                <div key={i} className={`gpt-line ${l.cls}`}>{l.text || ' '}</div>
+              ))}
+              <div ref={termBottomRef} />
+            </div>
+          </div>
+          <div className="gpt-sheet">
+            <div className="gpt-pane-label">google sheets</div>
+            <div className="gpt-sheet-head">
+              <span>Item</span>
+              <span>Price</span>
+              <span>vs Last Week</span>
+            </div>
+            <div className="gpt-sheet-scroll">
+              {rows.map((item, i) => {
+                const diff = +(item.price - item.prev).toFixed(2)
+                return (
+                  <div key={i} className={`gpt-row${i % 2 === 0 ? ' gpt-row-even' : ''}`}>
+                    <span className="gpt-col-name">{item.name}</span>
+                    <span className="gpt-col-price">${item.price.toFixed(2)}</span>
+                    <span className={diff > 0 ? 'gpt-delta-up' : diff < 0 ? 'gpt-delta-down' : 'gpt-delta-same'}>
+                      {diff > 0 ? `▲ +$${diff.toFixed(2)}` : diff < 0 ? `▼ -$${Math.abs(diff).toFixed(2)}` : '—'}
+                    </span>
+                  </div>
+                )
+              })}
+              <div ref={sheetBottomRef} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const projects = [
   {
     title: 'Signal Command Center',
@@ -150,6 +276,7 @@ const projects = [
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
+    demo: 'grocery',
   },
   {
     title: 'TikTok Video Generator',
@@ -186,6 +313,7 @@ export default function App() {
     <>
       {activeDemo === 'matrix' && <MatrixOverlay onClose={() => setActiveDemo(null)} />}
       {activeDemo === 'cli' && <CLIDemo onClose={() => setActiveDemo(null)} />}
+      {activeDemo === 'grocery' && <GroceryDemo onClose={() => setActiveDemo(null)} />}
       <nav className="nav">
         <a href="#" className="nav-brand">rustydodd.com</a>
         <a
