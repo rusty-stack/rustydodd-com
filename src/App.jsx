@@ -1,4 +1,66 @@
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
+
+function MatrixOverlay({ onClose }) {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+    const fontSize = 14
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    let drops = []
+    let animId
+
+    function init() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      const cols = Math.floor(canvas.width / fontSize)
+      drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -50))
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.font = `${fontSize}px monospace`
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)]
+        const y = drops[i] * fontSize
+        ctx.fillStyle = drops[i] < 2 ? '#c8ffc8' : '#00cc44'
+        ctx.fillText(char, i * fontSize, y)
+        if (y > canvas.height && Math.random() > 0.975) drops[i] = 0
+        drops[i]++
+      }
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    function onResize() { init() }
+
+    init()
+    draw()
+    window.addEventListener('resize', onResize)
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    function onKey(e) { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  return (
+    <div className="matrix-overlay" onClick={onClose}>
+      <canvas ref={canvasRef} className="matrix-canvas" />
+      <span className="matrix-hint">click anywhere or press ESC to exit</span>
+    </div>
+  )
+}
 
 const projects = [
   {
@@ -35,6 +97,7 @@ const projects = [
     title: 'Matrix Screensaver',
     desc: 'Custom Matrix-style screensaver built from scratch.',
     tags: ['JavaScript', 'Canvas'],
+    demo: true,
   },
   {
     title: 'Command Line Screen',
@@ -48,8 +111,11 @@ function scrollTo(id) {
 }
 
 export default function App() {
+  const [showMatrix, setShowMatrix] = useState(false)
+
   return (
     <>
+      {showMatrix && <MatrixOverlay onClose={() => setShowMatrix(false)} />}
       <nav className="nav">
         <a href="#" className="nav-brand">rustydodd.com</a>
         <a
@@ -90,6 +156,11 @@ export default function App() {
                   <span className="tag" key={t}>{t}</span>
                 ))}
               </div>
+              {p.demo && (
+                <button className="demo-btn" onClick={() => setShowMatrix(true)}>
+                  ▶ Demo
+                </button>
+              )}
             </div>
           ))}
         </div>
