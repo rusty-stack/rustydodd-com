@@ -249,14 +249,21 @@ footer {
 
 .matrix-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 1000;
   cursor: pointer;
   background: #000;
+  overflow: hidden;
 }
 
 .matrix-canvas {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
@@ -274,6 +281,86 @@ footer {
   pointer-events: none;
   white-space: nowrap;
 }
+
+.cli-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.cli-window {
+  background: #080808;
+  border: 1px solid #222;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 660px;
+  height: min(80vh, 560px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.cli-titlebar {
+  background: #111;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #00cc44;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+
+.cli-close {
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.cli-close:hover { color: #f9fafb; }
+
+.cli-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.75;
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}
+
+@media (max-width: 480px) {
+  .cli-body { font-size: 11px; padding: 10px 12px; }
+}
+
+.cli-line { white-space: pre-wrap; word-break: break-word; }
+
+.cli-header  { color: #00cc44; font-weight: bold; letter-spacing: 1px; }
+.cli-sys     { color: #4b5563; }
+.cli-divider { color: #1f2937; }
+.cli-weather { color: #60a5fa; }
+.cli-news    { color: #e5e7eb; }
+.cli-project { color: #9ca3af; }
+.cli-reminder{ color: #fbbf24; }
+.cli-cursor  { color: #00cc44; }
+.cli-blank   { user-select: none; }
 
 .contact-email {
   font-size: 20px;

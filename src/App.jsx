@@ -1,8 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
+function useEscClose(onClose) {
+  useEffect(() => {
+    function onKey(e) { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+}
+
 function MatrixOverlay({ onClose }) {
   const canvasRef = useRef(null)
+  useEscClose(onClose)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -14,8 +23,8 @@ function MatrixOverlay({ onClose }) {
     let animId
 
     function init() {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      canvas.width = window.screen.width
+      canvas.height = window.screen.height
       const cols = Math.floor(canvas.width / fontSize)
       drops = Array.from({ length: cols }, () => Math.floor(Math.random() * -50))
     }
@@ -24,7 +33,6 @@ function MatrixOverlay({ onClose }) {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.font = `${fontSize}px monospace`
-
       for (let i = 0; i < drops.length; i++) {
         const char = chars[Math.floor(Math.random() * chars.length)]
         const y = drops[i] * fontSize
@@ -33,31 +41,91 @@ function MatrixOverlay({ onClose }) {
         if (y > canvas.height && Math.random() > 0.975) drops[i] = 0
         drops[i]++
       }
-
       animId = requestAnimationFrame(draw)
     }
 
-    function onResize() { init() }
-
     init()
     draw()
-    window.addEventListener('resize', onResize)
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', onResize)
-    }
+    return () => cancelAnimationFrame(animId)
   }, [])
-
-  useEffect(() => {
-    function onKey(e) { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
 
   return (
     <div className="matrix-overlay" onClick={onClose}>
       <canvas ref={canvasRef} className="matrix-canvas" />
-      <span className="matrix-hint">click anywhere or press ESC to exit</span>
+      <span className="matrix-hint">tap or press ESC to exit</span>
+    </div>
+  )
+}
+
+const CLI_LINES = [
+  { text: 'COMMAND LINE SCREEN  v2.1', type: 'header' },
+  { text: 'Display: DISPLAY2  3440×1440  |  Auto-launch: enabled', type: 'sys' },
+  { text: 'Connecting to feeds...  OK', type: 'sys' },
+  { text: '', type: 'blank' },
+  { text: '─── WEATHER ─────────────────────────────────────', type: 'divider' },
+  { text: '  Memphis, TN  |  84°F  |  Partly Cloudy', type: 'weather' },
+  { text: '  High 89°F  ·  Low 71°F  ·  Humidity 62%', type: 'weather' },
+  { text: '  Wind 8 mph SW  ·  UV Index 7  ·  Sunrise 5:47 AM', type: 'weather' },
+  { text: '', type: 'blank' },
+  { text: '─── TOP NEWS ────────────────────────────────────', type: 'divider' },
+  { text: '  Fed signals rate cut in Q3 as inflation cools to 2.4%', type: 'news' },
+  { text: '  SpaceX Starship completes 4th successful orbital test', type: 'news' },
+  { text: '  Senate passes AI transparency bill 67-31', type: 'news' },
+  { text: '  Tesla unveils new factory automation system in Austin', type: 'news' },
+  { text: '  Memphis Grizzlies land top-3 pick in NBA Draft lottery', type: 'news' },
+  { text: '  Amazon expands same-day delivery to 15 new cities', type: 'news' },
+  { text: '', type: 'blank' },
+  { text: '─── PROJECTS ────────────────────────────────────', type: 'divider' },
+  { text: '  signal-command-center    Railway   ● online', type: 'project' },
+  { text: '  ai-trader                Railway   ● online', type: 'project' },
+  { text: '  gorgias-email-responder  local      ○ idle', type: 'project' },
+  { text: '  grocery-price-tracker    sched      ● next run Mon 10am', type: 'project' },
+  { text: '  rustydodd.com            Railway   ● online', type: 'project' },
+  { text: '', type: 'blank' },
+  { text: '─── REMINDERS ───────────────────────────────────', type: 'divider' },
+  { text: '  !  Back up Claude Code Projects folder', type: 'reminder' },
+  { text: '  !  Follow up with Steve re: Gorgias API key', type: 'reminder' },
+  { text: '  !  Finnhub key needed for AI Trader live feed', type: 'reminder' },
+  { text: '', type: 'blank' },
+  { text: '─── SYSTEM ──────────────────────────────────────', type: 'divider' },
+  { text: '  Boot 12.4s  |  RAM 14.2/32 GB  |  CPU 6%  |  Uptime 14d', type: 'sys' },
+  { text: '  Last boot: Thu Jun 11 06:32 AM  |  No errors detected', type: 'sys' },
+  { text: '', type: 'blank' },
+  { text: '  Ready.  Next update in 28 min  _', type: 'cursor' },
+]
+
+function CLIDemo({ onClose }) {
+  const [lines, setLines] = useState([])
+  const bottomRef = useRef(null)
+  useEscClose(onClose)
+
+  useEffect(() => {
+    const timers = CLI_LINES.map((line, i) =>
+      setTimeout(() => setLines(prev => [...prev, line]), i * 100)
+    )
+    return () => timers.forEach(clearTimeout)
+  }, [])
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [lines])
+
+  return (
+    <div className="cli-overlay" onClick={onClose}>
+      <div className="cli-window" onClick={e => e.stopPropagation()}>
+        <div className="cli-titlebar">
+          <span>COMMAND LINE SCREEN</span>
+          <button className="cli-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="cli-body">
+          {lines.map((line, i) => (
+            <div key={i} className={`cli-line cli-${line.type}`}>
+              {line.text || ' '}
+            </div>
+          ))}
+          <div ref={bottomRef} />
+        </div>
+      </div>
     </div>
   )
 }
@@ -97,12 +165,13 @@ const projects = [
     title: 'Matrix Screensaver',
     desc: 'Custom Matrix-style screensaver built from scratch.',
     tags: ['JavaScript', 'Canvas'],
-    demo: true,
+    demo: 'matrix',
   },
   {
     title: 'Command Line Screen',
     desc: 'Always-on desktop overlay showing news, weather, projects, and reminders.',
     tags: ['PowerShell', 'JavaScript'],
+    demo: 'cli',
   },
 ]
 
@@ -111,11 +180,12 @@ function scrollTo(id) {
 }
 
 export default function App() {
-  const [showMatrix, setShowMatrix] = useState(false)
+  const [activeDemo, setActiveDemo] = useState(null)
 
   return (
     <>
-      {showMatrix && <MatrixOverlay onClose={() => setShowMatrix(false)} />}
+      {activeDemo === 'matrix' && <MatrixOverlay onClose={() => setActiveDemo(null)} />}
+      {activeDemo === 'cli' && <CLIDemo onClose={() => setActiveDemo(null)} />}
       <nav className="nav">
         <a href="#" className="nav-brand">rustydodd.com</a>
         <a
@@ -157,7 +227,7 @@ export default function App() {
                 ))}
               </div>
               {p.demo && (
-                <button className="demo-btn" onClick={() => setShowMatrix(true)}>
+                <button className="demo-btn" onClick={() => setActiveDemo(p.demo)}>
                   ▶ Demo
                 </button>
               )}
