@@ -327,10 +327,12 @@ export default function App() {
 
       <div className="hero">
         <h1 className="hero-name">RUSTY DODD</h1>
-        <p className="hero-tagline">Developer &middot; Builder &middot; Audio Nerd</p>
+        <p className="hero-tagline">Developer &middot; Builder &middot; Audio Nerd &middot; HVAC Installer &middot; Professional Musician</p>
         <p className="hero-bio">
           I build tools that solve real problems — inventory systems, trading bots,
           AI automations, and things that probably shouldn't exist.
+          I also assist in HVAC installations and enjoy playing drums, percussion,
+          and keyboards in local acts.
         </p>
         <a
           href="#projects"
