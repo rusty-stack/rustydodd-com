@@ -322,18 +322,82 @@ const projects = [
   },
 ]
 
+const HERO = 'RUSTY DODD'
+const GLITCH_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?'
+
+const BOOT_LINES = [
+  { text: 'BIOS v2.1.4 initialized', delay: 200 },
+  { text: 'Loading kernel modules .......... OK', delay: 600 },
+  { text: 'Mounting filesystems ............. OK', delay: 1000 },
+  { text: 'Starting network services ........ OK', delay: 1400 },
+  { text: 'Establishing connection .......... OK', delay: 1800 },
+  { text: '', delay: 2100 },
+  { text: 'Launching rustydodd.com ...', delay: 2300 },
+  { text: '', delay: 2700 },
+  { text: '> Welcome back.', delay: 2900 },
+]
+
+function BootSequence({ onClose }) {
+  const [lines, setLines] = useState([])
+  const [fading, setFading] = useState(false)
+  useEscClose(onClose)
+
+  useEffect(() => {
+    const timers = BOOT_LINES.map(({ text, delay }) =>
+      setTimeout(() => setLines(prev => [...prev, text]), delay)
+    )
+    const fadeTimer = setTimeout(() => setFading(true), 3600)
+    const closeTimer = setTimeout(onClose, 4300)
+    return () => [...timers, fadeTimer, closeTimer].forEach(clearTimeout)
+  }, [onClose])
+
+  return (
+    <div className={`boot-overlay${fading ? ' boot-fade' : ''}`} onClick={onClose}>
+      <div className="boot-terminal">
+        {lines.map((line, i) => (
+          <div key={i} className="boot-line">{line || ' '}</div>
+        ))}
+        {!fading && <span className="boot-cursor">█</span>}
+      </div>
+      <span className="matrix-hint">tap or press ESC to skip</span>
+    </div>
+  )
+}
+
 function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
 export default function App() {
   const [activeDemo, setActiveDemo] = useState(null)
+  const [heroText, setHeroText] = useState(HERO)
+
+  useEffect(() => {
+    let frame = 0
+    const totalFrames = 45
+    const id = setInterval(() => {
+      frame++
+      const resolved = Math.floor((frame / totalFrames) * HERO.length)
+      const next = HERO.split('').map((char, i) => {
+        if (char === ' ') return ' '
+        if (i < resolved) return char
+        return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+      }).join('')
+      setHeroText(next)
+      if (frame >= totalFrames) {
+        setHeroText(HERO)
+        clearInterval(id)
+      }
+    }, 30)
+    return () => clearInterval(id)
+  }, [])
 
   return (
     <>
       {activeDemo === 'matrix' && <MatrixOverlay onClose={() => setActiveDemo(null)} />}
       {activeDemo === 'cli' && <CLIDemo onClose={() => setActiveDemo(null)} />}
       {activeDemo === 'grocery' && <GroceryDemo onClose={() => setActiveDemo(null)} />}
+      {activeDemo === 'boot' && <BootSequence onClose={() => setActiveDemo(null)} />}
       <nav className="nav">
         <a href="#" className="nav-brand">rustydodd.com</a>
         <a
@@ -346,7 +410,7 @@ export default function App() {
       </nav>
 
       <div className="hero">
-        <h1 className="hero-name">RUSTY DODD</h1>
+        <h1 className="hero-name">{heroText}</h1>
         <p className="hero-tagline">Developer &middot; Builder &middot; Audio Nerd &middot; HVAC Installer &middot; Professional Musician</p>
         <p className="hero-bio">
           I build tools that solve real problems — inventory systems, trading bots,
@@ -411,7 +475,10 @@ export default function App() {
             GitHub
           </a>
         </div>
-        <span className="footer-byline">Built by Rusty Dodd</span>
+        <div className="footer-right">
+          <button className="reboot-btn" onClick={() => setActiveDemo('boot')}>⟳ reboot</button>
+          <span className="footer-byline">Built by Rusty Dodd</span>
+        </div>
       </footer>
     </>
   )
