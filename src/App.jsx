@@ -258,35 +258,10 @@ function GroceryDemo({ onClose }) {
 
 const projects = [
   {
-    title: 'Signal Command Center',
-    desc: 'Admin portal for Seismic Audio connecting inventory, orders, and shipping platforms across multiple services.',
-    tags: ['React', 'Node.js', 'Railway'],
-  },
-  {
-    title: 'AI Trader',
-    desc: 'Automated stock trading bot with a live dashboard. Monitors market feeds and executes strategy-based trades.',
-    tags: ['Node.js', 'React', 'Vite'],
-  },
-  {
-    title: 'Gorgias Email AI',
-    desc: 'AI-powered customer support responder that classifies tickets and drafts replies from a knowledge base.',
-    tags: ['Node.js', 'Anthropic Claude'],
-  },
-  {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
     demo: 'grocery',
-  },
-  {
-    title: 'TikTok Video Generator',
-    desc: 'AI-generated music and video pipeline for short-form social content.',
-    tags: ['Node.js', 'AI'],
-  },
-  {
-    title: 'Startup Monitor',
-    desc: 'System watchdog that logs every boot and surfaces recurring issues with a postmortem display.',
-    tags: ['PowerShell', 'Node.js'],
   },
   {
     title: 'Matrix Screensaver',
@@ -299,6 +274,51 @@ const projects = [
     desc: 'Always-on desktop overlay showing news, weather, projects, and reminders.',
     tags: ['PowerShell', 'JavaScript'],
     demo: 'cli',
+  },
+  {
+    title: 'Signal Command Center — RMA Feature',
+    desc: 'Contributed the return label flow to a larger admin portal built for Seismic Audio. Built FedEx label generation, a void label modal, and ShipStation API integration — all wired into a multi-step return workflow.',
+    tags: ['React', 'Node.js', 'ShipStation API'],
+  },
+  {
+    title: 'AI Trader',
+    desc: 'Automated stock trading bot with a live dashboard. Monitors market feeds and executes strategy-based trades.',
+    tags: ['Node.js', 'React', 'Vite'],
+  },
+  {
+    title: 'Gorgias Email AI',
+    desc: 'AI-powered customer support responder that classifies tickets and drafts replies from a knowledge base.',
+    tags: ['Node.js', 'Anthropic Claude'],
+  },
+  {
+    title: 'TikTok Video Generator',
+    desc: 'AI-generated music and video pipeline for short-form social content.',
+    tags: ['Node.js', 'AI'],
+  },
+  {
+    title: 'Claude Code Custom Skills & Hooks',
+    desc: 'Custom slash commands and automation hooks built into Claude Code — session journals, brain updates, project scaffolding, and event-driven reminders that run automatically on session start, stop, and context compaction.',
+    tags: ['PowerShell', 'JavaScript', 'Claude Code'],
+  },
+  {
+    title: 'Executive Assistant',
+    desc: 'Personal productivity app with contacts, reminders, projects, and a calendar. Built in React with plans to migrate to a Railway-hosted backend with a full Postgres API.',
+    tags: ['React', 'Vite', 'Node.js'],
+  },
+  {
+    title: 'LED Light Install Business',
+    desc: 'Planning and research for a side business specializing in residential and commercial LED lighting installations — sourcing, pricing, and service structure.',
+    tags: ['Business', 'Planning'],
+  },
+  {
+    title: 'Network Deployment & IT Solutions',
+    desc: 'Dual-WAN pfSense home network with VLANs and network segmentation. Simulated in Cisco Packet Tracer ahead of real hardware deployment.',
+    tags: ['pfSense', 'Networking', 'VLANs'],
+  },
+  {
+    title: 'Custom SaaS & ERM Packages',
+    desc: 'Design and development of custom software-as-a-service tools and enterprise resource management systems tailored to small business needs.',
+    tags: ['SaaS', 'React', 'Node.js'],
   },
 ]
 
