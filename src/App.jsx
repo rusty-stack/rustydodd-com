@@ -377,9 +377,6 @@ export default function App() {
 
       <section id="contact" className="contact-section">
         <p className="section-label">Contact</p>
-        <a href="mailto:rusty@seismicaudiospeakers.com" className="contact-email">
-          rusty@seismicaudiospeakers.com
-        </a>
         <p className="contact-sub">Open to interesting projects.</p>
       </section>
 
