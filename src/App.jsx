@@ -446,20 +446,22 @@ export default function App() {
           I also assist in HVAC installations and enjoy playing drums, percussion,
           and keyboards in local acts.
         </p>
-        <a
-          href="#projects"
-          className="hero-btn"
-          onClick={(e) => { e.preventDefault(); scrollTo('projects') }}
-        >
-          See My Work ↓
-        </a>
-        <a
-          href="#games"
-          className="hero-btn"
-          onClick={(e) => { e.preventDefault(); scrollTo('games') }}
-        >
-          Games ↓
-        </a>
+        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center' }}>
+          <a
+            href="#projects"
+            className="hero-btn"
+            onClick={(e) => { e.preventDefault(); scrollTo('projects') }}
+          >
+            See My Work ↓
+          </a>
+          <a
+            href="#games"
+            className="hero-btn"
+            onClick={(e) => { e.preventDefault(); scrollTo('games') }}
+          >
+            Games ↓
+          </a>
+        </div>
       </div>
 
       <section id="projects" className="section">
