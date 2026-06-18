@@ -281,6 +281,12 @@ const games = [
     tags: ['JavaScript', 'Canvas'],
     link: '/tetris.html',
   },
+  {
+    title: 'Thunder Force',
+    desc: '16-bit SEGA-style vertical shoot-em-up. Spiral-firing boss, power-ups, particle effects — all hand-drawn in Canvas.',
+    tags: ['JavaScript', 'Canvas'],
+    link: '/thunder-force.html',
+  },
 ]
 
 const projects = [
