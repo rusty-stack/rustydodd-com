@@ -453,6 +453,13 @@ export default function App() {
         >
           See My Work ↓
         </a>
+        <a
+          href="#games"
+          className="hero-btn"
+          onClick={(e) => { e.preventDefault(); scrollTo('games') }}
+        >
+          Games ↓
+        </a>
       </div>
 
       <section id="projects" className="section">
