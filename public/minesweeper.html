@@ -66,6 +66,17 @@
     padding: 6px;
     border: 3px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
+    position: relative;
+  }
+
+  #cheat-pixel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    background: #c0c0c0;
+    z-index: 99;
   }
 
   #titlebar {
@@ -219,6 +230,7 @@
 <div id="scaler-outer">
   <div id="scaler">
     <div id="window">
+      <div id="cheat-pixel"></div>
       <div id="titlebar">
         <span>💣 Minesweeper</span>
       </div>
@@ -307,6 +319,8 @@ function buildGrid() {
       el.addEventListener('mousedown', onMouseDown);
       el.addEventListener('mouseup', onMouseUp);
       el.addEventListener('contextmenu', e => { e.preventDefault(); rightClick(r, c); });
+      el.addEventListener('mouseenter', () => { document.getElementById('cheat-pixel').style.background = cell.mine ? '#000' : '#c0c0c0'; });
+      el.addEventListener('mouseleave', () => { document.getElementById('cheat-pixel').style.background = '#c0c0c0'; });
       let longPressTimer = null;
       el.addEventListener('touchstart', e => {
         e.preventDefault();
