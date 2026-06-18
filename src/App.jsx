@@ -256,31 +256,34 @@ function GroceryDemo({ onClose }) {
   )
 }
 
-const projects = [
+const games = [
   {
     title: 'Missile Command',
-    desc: 'Browser-based Missile Command clone — 3 batteries, limited ammo, difficulty ramp, and MIRVs that split mid-air.',
-    tags: ['JavaScript', 'Canvas', 'Game'],
+    desc: 'Defend your cities from incoming missiles and MIRVs across escalating waves.',
+    tags: ['JavaScript', 'Canvas'],
     link: '/missile-command.html',
   },
   {
     title: 'Minesweeper',
-    desc: 'Classic Windows 95-style Minesweeper — Beginner, Intermediate, and Expert difficulties. Works on mobile too.',
-    tags: ['JavaScript', 'Game'],
+    desc: 'Classic Windows 95-style — Beginner, Intermediate, and Expert. Works on mobile.',
+    tags: ['JavaScript'],
     link: '/minesweeper.html',
   },
   {
     title: 'Snake',
-    desc: 'Classic Snake with level progression, glowing neon visuals, and a mobile D-pad.',
-    tags: ['JavaScript', 'Canvas', 'Game'],
+    desc: 'Neon Snake with level progression and mobile D-pad support.',
+    tags: ['JavaScript', 'Canvas'],
     link: '/snake.html',
   },
   {
     title: 'Tetris',
-    desc: 'Full Tetris — all 7 pieces, ghost piece, hold, next preview, wall kicks, and level progression.',
-    tags: ['JavaScript', 'Canvas', 'Game'],
+    desc: 'All 7 pieces, ghost piece, hold, next preview, wall kicks, and level progression.',
+    tags: ['JavaScript', 'Canvas'],
     link: '/tetris.html',
   },
+]
+
+const projects = [
   {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
@@ -474,6 +477,27 @@ export default function App() {
                   ▶ Play
                 </a>
               )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="games" className="section">
+        <p className="section-label">Games</p>
+        <h2 className="section-title">Playable in the browser</h2>
+        <div className="projects-grid">
+          {games.map((g) => (
+            <div className="card" key={g.title}>
+              <div className="card-title">{g.title}</div>
+              <p className="card-desc">{g.desc}</p>
+              <div className="card-tags">
+                {g.tags.map((t) => (
+                  <span className="tag" key={t}>{t}</span>
+                ))}
+              </div>
+              <a className="demo-btn" href={g.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                ▶ Play
+              </a>
             </div>
           ))}
         </div>
