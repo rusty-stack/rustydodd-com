@@ -264,6 +264,12 @@ const projects = [
     link: '/missile-command.html',
   },
   {
+    title: 'Minesweeper',
+    desc: 'Classic Windows 95-style Minesweeper — Beginner, Intermediate, and Expert difficulties. Works on mobile too.',
+    tags: ['JavaScript', 'Game'],
+    link: '/minesweeper.html',
+  },
+  {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
