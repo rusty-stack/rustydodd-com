@@ -258,6 +258,12 @@ function GroceryDemo({ onClose }) {
 
 const projects = [
   {
+    title: 'Missile Command',
+    desc: 'Browser-based Missile Command clone — 3 batteries, limited ammo, difficulty ramp, and MIRVs that split mid-air.',
+    tags: ['JavaScript', 'Canvas', 'Game'],
+    link: '/missile-command.html',
+  },
+  {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
@@ -444,6 +450,11 @@ export default function App() {
                 <button className="demo-btn" onClick={() => setActiveDemo(p.demo)}>
                   ▶ Demo
                 </button>
+              )}
+              {p.link && (
+                <a className="demo-btn" href={p.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                  ▶ Play
+                </a>
               )}
             </div>
           ))}
