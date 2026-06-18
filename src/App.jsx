@@ -276,6 +276,12 @@ const projects = [
     link: '/snake.html',
   },
   {
+    title: 'Tetris',
+    desc: 'Full Tetris — all 7 pieces, ghost piece, hold, next preview, wall kicks, and level progression.',
+    tags: ['JavaScript', 'Canvas', 'Game'],
+    link: '/tetris.html',
+  },
+  {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
