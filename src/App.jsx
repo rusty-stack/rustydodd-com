@@ -446,7 +446,7 @@ export default function App() {
           I also assist in HVAC installations and enjoy playing drums, percussion,
           and keyboards in local acts.
         </p>
-        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '14px' }}>
           <a
             href="#projects"
             className="hero-btn"

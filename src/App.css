@@ -68,7 +68,9 @@
 
 .hero-btn {
   display: inline-block;
-  padding: 12px 28px;
+  padding: 12px 0;
+  width: 160px;
+  text-align: center;
   background: transparent;
   border: 1px solid #0294ff;
   color: #0294ff;
