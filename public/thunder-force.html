@@ -711,6 +711,8 @@ function update() {
   frameCount++;
   updateBG();
 
+  if (state === 'TITLE') return;
+
   if (state === 'DEAD') {
     waveTimer++;
     if (waveTimer > 90) { state = lives > 0 ? 'PLAYING' : 'GAMEOVER'; waveTimer = 0; }
