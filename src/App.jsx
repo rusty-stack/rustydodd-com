@@ -303,11 +303,6 @@ const projects = [
     demo: 'cli',
   },
   {
-    title: 'Signal Command Center — RMA Feature',
-    desc: 'Contributed the return label flow to a larger admin portal built for Seismic Audio. Built FedEx label generation, a void label modal, and ShipStation API integration — all wired into a multi-step return workflow.',
-    tags: ['React', 'Node.js', 'ShipStation API'],
-  },
-  {
     title: 'AI Trader',
     desc: 'Automated stock trading bot with a live dashboard. Monitors market feeds and executes strategy-based trades.',
     tags: ['Node.js', 'React', 'Vite'],
