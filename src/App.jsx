@@ -270,6 +270,12 @@ const projects = [
     link: '/minesweeper.html',
   },
   {
+    title: 'Snake',
+    desc: 'Classic Snake with level progression, glowing neon visuals, and a mobile D-pad.',
+    tags: ['JavaScript', 'Canvas', 'Game'],
+    link: '/snake.html',
+  },
+  {
     title: 'Grocery Price Tracker',
     desc: 'Automated tool that monitors grocery prices weekly and logs them to a spreadsheet.',
     tags: ['Node.js', 'Google Sheets'],
