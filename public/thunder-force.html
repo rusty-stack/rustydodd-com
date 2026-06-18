@@ -743,7 +743,7 @@ function update() {
   bullets = bullets.filter(b => b.y > -20 && b.x > -20 && b.x < W + 20);
 
   for (const b of enemyBullets) { b.x += b.vx; b.y += b.vy; }
-  enemyBullets = enemyBullets.filter(b => b.y < H + 20 && b.x > -20 && b.x < W + 20);
+  enemyBullets = enemyBullets.filter(b => b.y > -20 && b.y < H + 20 && b.x > -20 && b.x < W + 20);
 
   // Move enemies
   for (const e of enemies) {
