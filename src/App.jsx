@@ -258,31 +258,31 @@ function GroceryDemo({ onClose }) {
 
 const games = [
   {
-    title: 'Missile Command',
+    title: 'Silo Defense',
     desc: 'Defend your cities from incoming missiles and MIRVs across escalating waves.',
     tags: ['JavaScript', 'Canvas'],
     link: '/missile-command.html',
   },
   {
-    title: 'Minesweeper',
+    title: 'Mine Clear',
     desc: 'Classic Windows 95-style — Beginner, Intermediate, and Expert. Works on mobile.',
     tags: ['JavaScript'],
     link: '/minesweeper.html',
   },
   {
-    title: 'Snake',
-    desc: 'Neon Snake with level progression and mobile D-pad support.',
+    title: 'Neon Serpent',
+    desc: 'Neon snake-style action with level progression and mobile D-pad support.',
     tags: ['JavaScript', 'Canvas'],
     link: '/snake.html',
   },
   {
-    title: 'Tetris',
+    title: 'Block Stack',
     desc: 'All 7 pieces, ghost piece, hold, next preview, wall kicks, and level progression.',
     tags: ['JavaScript', 'Canvas'],
     link: '/tetris.html',
   },
   {
-    title: 'Thunder Force',
+    title: 'Aegis Strike',
     desc: '16-bit SEGA-style vertical shoot-em-up. Spiral-firing boss, power-ups, particle effects — all hand-drawn in Canvas.',
     tags: ['JavaScript', 'Canvas'],
     link: '/thunder-force.html',
