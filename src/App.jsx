@@ -337,6 +337,7 @@ const projects = [
     title: 'LED Light Install Business',
     desc: 'Planning and research for a side business specializing in residential and commercial LED lighting installations — sourcing, pricing, and service structure.',
     tags: ['Business', 'Planning'],
+    special: 'led',
   },
   {
     title: 'Network Deployment & IT Solutions',
@@ -469,7 +470,7 @@ export default function App() {
         <h2 className="section-title">Things I've built</h2>
         <div className="projects-grid">
           {projects.map((p) => (
-            <div className="card" key={p.title}>
+            <div className={`card${p.special === 'led' ? ' led-card' : ''}`} key={p.title}>
               <div className="card-title">{p.title}</div>
               <p className="card-desc">{p.desc}</p>
               <div className="card-tags">

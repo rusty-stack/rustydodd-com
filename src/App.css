@@ -173,6 +173,75 @@
   letter-spacing: 0.2px;
 }
 
+@property --led-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.led-card {
+  position: relative;
+  z-index: 0;
+  --led-angle: 0deg;
+  animation: led-breathe 3s ease-in-out infinite;
+}
+
+.led-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 12px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--led-angle),
+    #ff2079, #ffd60a, #39ff14, #00e5ff, #7b2fff, #ff2079
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: led-spin 4s linear infinite;
+}
+
+.led-card .card-title {
+  transition: text-shadow 0.2s;
+}
+
+.led-card:hover {
+  animation: led-breathe 3s ease-in-out infinite, led-vomit 0.5s steps(8) infinite;
+}
+
+.led-card:hover::before {
+  animation: led-spin 0.5s linear infinite;
+}
+
+.led-card:hover .card-title {
+  text-shadow: 0 0 8px currentColor;
+}
+
+@keyframes led-spin {
+  to { --led-angle: 360deg; }
+}
+
+@keyframes led-breathe {
+  0%, 100% { box-shadow: 0 0 6px 0 rgba(2, 148, 255, 0.15); }
+  50% { box-shadow: 0 0 26px 4px rgba(2, 148, 255, 0.45); }
+}
+
+@keyframes led-vomit {
+  0% { filter: hue-rotate(0deg) saturate(1.8) brightness(1.1); }
+  100% { filter: hue-rotate(360deg) saturate(1.8) brightness(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-card,
+  .led-card::before,
+  .led-card:hover,
+  .led-card:hover::before {
+    animation: none;
+  }
+}
+
 .about-section {
   border-top: 1px solid #1a1a1a;
   border-bottom: 1px solid #1a1a1a;
