@@ -309,6 +309,12 @@ const projects = [
     demo: 'cli',
   },
   {
+    title: 'Rhythm Translator',
+    desc: 'Click a drum-machine grid and watch it generate live Strudel mini-notation code, played back with Strudel\'s own audio engine.',
+    tags: ['React', 'Vite', 'Strudel'],
+    link: '/rhythm/',
+  },
+  {
     title: 'AI Trader',
     desc: 'Automated stock trading bot with a live dashboard. Monitors market feeds and executes strategy-based trades.',
     tags: ['Node.js', 'React', 'Vite'],
